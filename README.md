@@ -1,12 +1,9 @@
-# Adonis API application
+# Desafio Rocketseat
 
-This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
+Desafio destinado aos participantes do Bootcamp da Rocketseat.
 
-1. Bodyparser
-2. Authentication
-3. CORS
-4. Lucid ORM
-5. Migrations and seeds
+Projeto:
+Desenvolvimento de um gerenciamento de Delivery.
 
 ## Setup
 
