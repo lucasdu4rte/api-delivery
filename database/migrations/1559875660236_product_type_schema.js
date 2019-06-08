@@ -14,11 +14,11 @@ class ProductTypeSchema extends Schema {
         .onDelete('cascade')
         .index('product_id')
       table
-        .integer('size_id')
+        .integer('type_id')
         .unsigned()
-        .references('sizes.id')
+        .references('types.id')
         .onDelete('cascade')
-        .index('size_id')
+        .index('type_id')
       table.timestamps()
     })
   }
