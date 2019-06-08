@@ -27,6 +27,10 @@ class BaseSeeder {
       products[4] = await Product.create({
         description: "Dois Queijos"
       });
+
+      products[5] = await Product.create({
+        description: "Coca Cola"
+      });
     }
 
     let sizes = await Size.all();
