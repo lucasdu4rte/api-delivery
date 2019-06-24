@@ -3,7 +3,9 @@ const Type = use("App/Models/Type");
 
 class TypeController {
   async index({ request, response, view }) {
-    const types = Type.all();
+    const types = Type.query()
+      .with("products")
+      .fetch();
 
     return types;
   }
