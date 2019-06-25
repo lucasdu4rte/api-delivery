@@ -20,7 +20,7 @@ class OrderSchema extends Schema {
       table.string('zip_code', 255).notNullable()
       table.string('address', 255).notNullable()
       table.string('number', 255).notNullable()
-      table.string('complement', 255).notNullable()
+      table.string('complement', 255)
       table.string('neighborhood', 255).notNullable()
 
       table.timestamps()

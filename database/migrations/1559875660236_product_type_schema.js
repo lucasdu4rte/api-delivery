@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class ProductTypeSchema extends Schema {
   up () {
-    this.create('product_types', (table) => {
+    this.create('product_type', (table) => {
       table.increments()
       table
         .integer('product_id')
@@ -24,7 +24,7 @@ class ProductTypeSchema extends Schema {
   }
 
   down () {
-    this.drop('product_types')
+    this.drop('product_type')
   }
 }
 
