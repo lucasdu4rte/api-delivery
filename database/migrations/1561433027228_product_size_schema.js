@@ -3,16 +3,16 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class TypeSizeSchema extends Schema {
+class ProductSizeSchema extends Schema {
   up () {
-    this.create('type_sizes', (table) => {
+    this.create('product_size', (table) => {
       table.increments()
       table
-        .integer('type_id')
+        .integer('product_id')
         .unsigned()
-        .references('types.id')
+        .references('products.id')
         .onDelete('cascade')
-        .index('type_id')
+        .index('product_id')
       table
         .integer('size_id')
         .unsigned()
@@ -24,8 +24,8 @@ class TypeSizeSchema extends Schema {
   }
 
   down () {
-    this.drop('type_sizes')
+    this.drop('product_size')
   }
 }
 
-module.exports = TypeSizeSchema
+module.exports = ProductSizeSchema
