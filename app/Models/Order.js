@@ -10,7 +10,7 @@ class Order extends Model {
   }
 
   products () {
-    return this.hasMany('App/Models/OrderItem')
+    return this.belongsToMany('App/Models/Product').pivotModel('App/Models/OrderItem')
   }
 }
 
