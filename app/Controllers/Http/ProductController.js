@@ -1,9 +1,21 @@
 "use strict";
 const Product = use("App/Models/Product");
+const Database = use("Database");
 
 class ProductController {
-  async index({ request, response, view }) {
-    const products = Product.all();
+  async index({ request }) {
+    const { type_id } = request.only(["type_id"]);
+
+    const query = Database.select("products.*").from("products");
+
+    if (type_id) {
+      query
+        .leftJoin("product_type", "products.id", "product_type.product_id")
+        .leftJoin("types", "types.id", "product_type.type_id")
+        .where("types.id", type_id);
+    }
+
+    const products = await query;
 
     return products;
   }
