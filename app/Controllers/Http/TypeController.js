@@ -3,9 +3,14 @@ const Type = use("App/Models/Type");
 
 class TypeController {
   async index({ request, response, view }) {
-    const types = Type.query()
-      .with("products")
-      .fetch();
+    const { with_products } = request.all();
+    const query = Type.query()
+
+    if (with_products) {
+      query.with("products")
+    }
+
+    const types = await query.fetch();
 
     return types;
   }

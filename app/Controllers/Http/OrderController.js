@@ -4,12 +4,13 @@ const Order = use("App/Models/Order");
 
 class OrderController {
   async index({ request, response, view }) {
-    // const { type_id } = request.only(["type_id"]);
-    const query = Order.query();
-    // if (type_id) {
-    //   query.types().whereInPivot("type_id", type_id)
-    // }
+    const { filter_by_user_id } = request.all()
+    const query = Order.query().with('user').with('products');
 
+    if (filter_by_user_id) {
+      // pode ser verificado se não é o admin que está logado e aplicar o filtro
+      query.where('user_id', filter_by_user_id)
+    }
     const orders = await query.fetch();
 
     return orders;
