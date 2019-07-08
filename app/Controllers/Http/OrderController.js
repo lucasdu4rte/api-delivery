@@ -4,21 +4,32 @@ const Order = use("App/Models/Order");
 
 class OrderController {
   async index({ request, response, view }) {
-    const { filter_by_user_id } = request.all()
-    const query = Order.query().with('user').with('products');
+    const { filter_by_user_id } = request.all();
+    const query = Order.query()
+      .with("user")
+      .with("products.sizes");
 
     if (filter_by_user_id) {
       // pode ser verificado se não é o admin que está logado e aplicar o filtro
-      query.where('user_id', filter_by_user_id)
+      query.where("user_id", filter_by_user_id);
     }
     const orders = await query.fetch();
 
-    return orders;
+    return orders.toJSON().map(order => ({
+      ...order,
+      products: order.products.map(product => ({
+        ...product,
+        sizes: undefined,
+        size: {
+          ...product.sizes.find(size => size.id === product.pivot.size_id)
+        }
+      }))
+    }));
   }
 
   async store({ request, response, auth }) {
     const { products, ...data } = request.all();
-    const user = await auth.getUser()
+    const user = await auth.getUser();
 
     const order = await Order.create({
       ...data,
@@ -29,18 +40,19 @@ class OrderController {
     if (products) {
       await order
         .products()
-        .attach(products.map(product => product.id), row => {
+        .attach(products.map(product => product.id), (row, index) => {
           const productData = products.find(
             product => product.id === row.product_id
           );
           if (productData) {
             row.value = productData.price;
             row.quantity = 1;
+            row.size_id = products[index] ? products[index].size_id : null;
           }
         });
     }
 
-    await order.load('products')
+    await order.load("products");
 
     return order;
   }
@@ -62,20 +74,18 @@ class OrderController {
     await order.save();
 
     if (products) {
-      await order
-        .products()
-        .sync(products.map(product => product.id), row => {
-          const productData = products.find(
-            product => product.id === row.product_id
-          );
-          if (productData) {
-            row.value = productData.price;
-            row.quantity = 1;
-          }
-        });
+      await order.products().sync(products.map(product => product.id), row => {
+        const productData = products.find(
+          product => product.id === row.product_id
+        );
+        if (productData) {
+          row.value = productData.price;
+          row.quantity = 1;
+        }
+      });
     }
 
-    await order.load('products')
+    await order.load("products");
 
     return order;
   }

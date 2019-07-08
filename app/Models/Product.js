@@ -5,11 +5,11 @@ const Model = use("Model");
 
 class Product extends Model {
   types() {
-    return this.hasMany("App/Models/Type");
+    return this.belongsToMany("App/Models/Type");
   }
 
   sizes() {
-    return this.hasMany("App/Models/Size").pivotTable("product_size");
+    return this.belongsToMany("App/Models/Size").pivotTable("product_size")
   }
 }
 
