@@ -1,61 +1,61 @@
-"use strict";
-const Type = use("App/Models/Type");
+'use strict'
+const Type = use('App/Models/Type')
 
 class TypeController {
-  async index({ request, response, view }) {
-    const { with_products } = request.all();
+  async index ({ request, response, view }) {
+    const { with_products } = request.all()
     const query = Type.query()
 
     if (with_products) {
-      query.with("products")
+      query.with('products')
     }
 
-    const types = await query.fetch();
+    const types = await query.fetch()
 
-    return types;
+    return types
   }
 
-  async store({ request, response }) {
+  async store ({ request, response }) {
     const data = request.only([
-      "description",
-      "type",
-      "prepare_time",
-      "photo_url"
-    ]);
+      'description',
+      'type',
+      'prepare_time',
+      'photo_url'
+    ])
 
-    const type = await Type.create({ ...data });
+    const type = await Type.create({ ...data })
 
-    return type;
+    return type
   }
 
-  async show({ params, request, response, view }) {
-    const type = await Type.findOrFail(params.id);
+  async show ({ params, request, response, view }) {
+    const type = await Type.findOrFail(params.id)
 
-    return type;
+    return type
   }
 
-  async update({ params, request, response }) {
-    const type = await Type.findOrFail(params.id);
+  async update ({ params, request, response }) {
+    const type = await Type.findOrFail(params.id)
 
     const data = request.only([
-      "description",
-      "type",
-      "prepare_time",
-      "photo_url"
-    ]);
+      'description',
+      'type',
+      'prepare_time',
+      'photo_url'
+    ])
 
-    type.merge(data);
+    type.merge(data)
 
-    await type.save();
+    await type.save()
 
-    return type;
+    return type
   }
 
-  async destroy({ params, request, response }) {
-    const type = await Type.findOrFail(params.id);
+  async destroy ({ params, request, response }) {
+    const type = await Type.findOrFail(params.id)
 
-    await type.delete();
+    await type.delete()
   }
 }
 
-module.exports = TypeController;
+module.exports = TypeController

@@ -1,24 +1,24 @@
-"use strict";
+'use strict'
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
-const Route = use("Route");
+const Route = use('Route')
 
-Route.post("/users", "UserController.store");
+Route.post('/users', 'UserController.store')
 
-Route.resource("orders", "OrderController")
+Route.resource('orders', 'OrderController')
   .apiOnly()
-  .middleware("auth");
+  .middleware('auth')
 
-Route.resource("products", "ProductController")
+Route.resource('products', 'ProductController')
   .apiOnly()
-  .middleware("auth");
+  .middleware('auth')
 
-Route.post("/sessions", "SessionController.store");
+Route.post('/sessions', 'SessionController.store')
 
-Route.resource("/sizes", "SizeController")
+Route.resource('/sizes', 'SizeController')
   .apiOnly()
-  .middleware("auth");
+  .middleware('auth')
 
-Route.resource("types", "TypeController")
+Route.resource('types', 'TypeController')
   .apiOnly()
-  .middleware("auth");
+  .middleware('auth')

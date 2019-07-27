@@ -4,7 +4,6 @@
 const Model = use('Model')
 
 class OrderItem extends Model {
-
   product () {
     return this.belongsTo('App/Models/Product')
   }

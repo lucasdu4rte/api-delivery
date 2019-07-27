@@ -8,8 +8,8 @@ class Type extends Model {
     return this.hasMany('App/Models/Size')
   }
 
-  products() {
-    return this.belongsToMany("App/Models/Product");
+  products () {
+    return this.belongsToMany('App/Models/Product')
   }
 }
 

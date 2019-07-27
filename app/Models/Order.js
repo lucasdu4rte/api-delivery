@@ -4,7 +4,6 @@
 const Model = use('Model')
 
 class Order extends Model {
-
   user () {
     return this.belongsTo('App/Models/User')
   }
